@@ -8,7 +8,7 @@
 import UIKit
 
 class GFButton: UIButton {
-//test
+//It is a good idea use inheritance with UIButton, but is better use UIControl to do custom controls from zero.
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
