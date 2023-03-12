@@ -13,11 +13,10 @@ class NetworkManager {
     private let baseURL = "https://api.github.com/users/"
     let cache = NSCache<NSString, UIImage>()
     
-    
     private init() {}
     
+    
     func getFollowers(for username: String, page: Int, completed: @escaping (Result<[Follower], GFError>) -> Void) {
-        
         let endpoint = baseURL + "\(username)/followers?per_page=100&page=\(page)"
         
         guard let url = URL(string: endpoint) else {
@@ -46,6 +45,7 @@ class NetworkManager {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let followers = try decoder.decode([Follower].self, from: data)
                 completed(.success(followers))
+               
             }catch {
                
                 completed(.failure(.invalidData))
@@ -54,8 +54,8 @@ class NetworkManager {
         task.resume()
     }
     
+    
     func getUserInfo(for username: String, completed: @escaping (Result<User, GFError>) -> Void) {
-        
         let endpoint = baseURL + "\(username)"
         
         guard let url = URL(string: endpoint) else {
@@ -92,6 +92,7 @@ class NetworkManager {
         }
         task.resume()
     }
+    
     
     func downloadImage(from urlString: String, completed: @escaping (UIImage?) -> Void) {
         let cacheKey = NSString(string: urlString)
